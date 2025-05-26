@@ -6,6 +6,10 @@
     rm linux/linux/.config
     ln -s "$(pwd)/linux/.config" "$(pwd)/linux/linux/.config"
 
+@setup-arch:
+    @echo 'Setting up Arch Linux'
+    yay -Sy --needed qemu-full qemu-tools base-devel cdrkit syslinux xmlto kmod inetutils bc musl
+
 @build-kernel:
     cd linux/linux && make --jobs 4
 
