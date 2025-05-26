@@ -1,7 +1,35 @@
+use anyhow::Result;
+use std::env;
 use std::io::{self, BufRead};
+use std::path::PathBuf;
+
+fn generate_prompt_path() -> Result<String> {
+    let current_dir = env::current_dir()?;
+
+    if current_dir == PathBuf::from("/") {
+        return Ok(String::from("/"));
+    }
+
+    let home_dir = env::var("HOME").ok().map(PathBuf::from);
+
+    if let Some(home) = home_dir {
+        if home == current_dir {
+            return Ok(String::from("~"));
+        }
+    }
+
+    Ok(current_dir
+        .components()
+        .last()
+        .unwrap()
+        .as_os_str()
+        .to_string_lossy()
+        .to_string())
+}
 
 fn generate_prompt() -> String {
-    String::from(">")
+    let prompt_path = generate_prompt_path().unwrap_or(String::from("?"));
+    format!("{} >", prompt_path)
 }
 
 fn main() {
