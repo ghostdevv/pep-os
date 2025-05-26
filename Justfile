@@ -11,6 +11,7 @@
 
 @build-crates:
     cargo build --release
+    cd uutils/coreutils && cargo build --release --features unix --target x86_64-unknown-linux-musl
 
 @build-initramfs: build-crates
     mkdir -p linux/initramfs-tmp

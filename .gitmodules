@@ -1,3 +1,6 @@
 [submodule "linux"]
 	path = linux/linux
 	url = git@github.com:torvalds/linux.git
+[submodule "uutils/coreutils"]
+	path = uutils/coreutils
+	url = git@github.com:uutils/coreutils.git
