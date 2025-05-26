@@ -1,3 +1,3 @@
 /target
-/linux/initrd-tmp
-/linux/initrd.cpio
+/linux/initramfs-tmp
+/linux/initramfs.cpio

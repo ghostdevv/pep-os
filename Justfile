@@ -12,15 +12,15 @@
 @build-crates:
     cargo build --release
 
-@build-initrd: build-crates
-    mkdir -p linux/initrd-tmp
-    cp target/x86_64-unknown-linux-musl/release/initrd linux/initrd-tmp/init
-    cd linux/initrd-tmp && find . | cpio -o -H newc > ../initrd.cpio
-    rm -rf linux/initrd-tmp
+@build-initramfs: build-crates
+    mkdir -p linux/initramfs-tmp
+    cp target/x86_64-unknown-linux-musl/release/initramfs linux/initramfs-tmp/init
+    cd linux/initramfs-tmp && find . | cpio -o -H newc > ../initramfs.cpio
+    rm -rf linux/initramfs-tmp
 
-@build: build-kernel build-crates build-initrd
+@build: build-kernel build-crates build-initramfs
 
 [working-directory: 'linux/linux']
 @run: build
-    make isoimage FDARGS="initrd=/initrd.cpio" FDINITRD="../initrd.cpio"
+    make isoimage FDARGS="initrd=/initramfs.cpio" FDINITRD="../initramfs.cpio"
     qemu-system-x86_64 -cdrom arch/x86/boot/image.iso
