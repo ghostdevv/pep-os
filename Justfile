@@ -3,3 +3,6 @@ setup:
     git submodule update --init --recursive --depth 1
     rm linux/linux/.config
     ln -s "$(pwd)/linux/.config" "$(pwd)/linux/linux/.config"
+
+build:
+    cargo build --release
