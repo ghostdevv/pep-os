@@ -15,14 +15,16 @@
 
 @build-crates:
     cargo build --release
-    cd uutils/coreutils && cargo build --release --features unix --target x86_64-unknown-linux-musl
 
 @build-initramfs: build-crates
     mkdir -p linux/initramfs-tmp
     mkdir -p linux/initramfs-tmp/bin
     cp target/x86_64-unknown-linux-musl/release/initramfs linux/initramfs-tmp/init
-    cp uutils/coreutils/target/x86_64-unknown-linux-musl/release/coreutils linux/initramfs-tmp/bin/coreutils
-    cd linux/initramfs-tmp/bin && for command in $(./coreutils --list); do echo ln -s /bin/coreutils $command; done
+    cd linux/initramfs-tmp/bin && \
+        curl -Lo coreutils.tar.gz https://github.com/uutils/coreutils/releases/download/0.1.0/coreutils-0.1.0-x86_64-unknown-linux-musl.tar.gz && \
+        tar -xzf coreutils.tar.gz --strip-components=1 coreutils-0.1.0-x86_64-unknown-linux-musl/coreutils && \
+        rm coreutils.tar.gz
+    cd linux/initramfs-tmp/bin && for command in $(./coreutils --list); do ln -s /bin/coreutils $command; done
     cd linux/initramfs-tmp && find . | cpio -o -H newc > ../initramfs.cpio
     rm -rf linux/initramfs-tmp
 
