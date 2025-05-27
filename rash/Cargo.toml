@@ -1,7 +1,8 @@
 [package]
-name = "initramfs"
+name = "rash"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 anyhow = "1.0.98"
+shellwords = "1.1.0"

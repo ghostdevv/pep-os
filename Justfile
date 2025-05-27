@@ -29,8 +29,9 @@
         tar -xzf coreutils.tar.gz --strip-components=1 coreutils-0.1.0-x86_64-unknown-linux-musl/coreutils && \
         rm coreutils.tar.gz
     cd initramfs/bin && for command in $(./coreutils --list); do ln -s /bin/coreutils $command; done
-    @echo 'Installing initramfs program'
+    @echo 'Installing pep-os programs'
     cp rs/x86_64-unknown-linux-musl/release/initramfs initramfs/init
+    cp rs/x86_64-unknown-linux-musl/release/rash initramfs/bin/rash
     echo 'Building initramfs.cpio'
     cd initramfs && find . | cpio -o -H newc > ../initramfs.cpio
 
