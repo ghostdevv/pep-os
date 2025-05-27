@@ -33,7 +33,7 @@
     cp rs/x86_64-unknown-linux-musl/release/initramfs initramfs/init
     cp rs/x86_64-unknown-linux-musl/release/rash initramfs/bin/rash
     cp rs/x86_64-unknown-linux-musl/release/cowsay initramfs/bin/cowsay
-    echo 'Building initramfs.cpio'
+    @echo 'Building initramfs.cpio'
     cd initramfs && find . | cpio -o -H newc > ../initramfs.cpio
 
 @build: build-kernel build-crates build-initramfs
