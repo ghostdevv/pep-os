@@ -19,7 +19,10 @@
 
 @build-initramfs: build-crates
     mkdir -p linux/initramfs-tmp
+    mkdir -p linux/initramfs-tmp/bin
     cp target/x86_64-unknown-linux-musl/release/initramfs linux/initramfs-tmp/init
+    cp uutils/coreutils/target/x86_64-unknown-linux-musl/release/coreutils linux/initramfs-tmp/bin/coreutils
+    cd linux/initramfs-tmp/bin && for command in $(./coreutils --list); do echo ln -s /bin/coreutils $command; done
     cd linux/initramfs-tmp && find . | cpio -o -H newc > ../initramfs.cpio
     rm -rf linux/initramfs-tmp
 
