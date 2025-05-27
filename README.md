@@ -15,5 +15,8 @@
 - [x] figure out what in the world initramfs is
 - [x] write a slightly-above-simple command runner for the shell
 - [ ] ~~escape initramfs into the real world~~
-- [ ] get uutils or busybox working in initramfs
-- [ ] ~~escape initramfs into the real world~~
+- [x] get uutils coreutils or busybox working in initramfs
+- [x] create a seperate shell binary - Really Awful SHell (rash)
+- [ ] figure out why `echo $PATH` etc isn't working
+- [ ] get uutils find utils working
+- [ ] escape initramfs into the real world
